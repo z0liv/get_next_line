@@ -6,61 +6,118 @@
 /*   By: omarquez <omarquez@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/21 15:29:46 by omarquez          #+#    #+#             */
-/*   Updated: 2026/05/27 16:02:39 by omarquez         ###   ########.fr       */
+/*   Updated: 2026/05/28 15:55:51 by omarquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include "get_next_line.h"
 
+char	*ft_strjoin(char *s1, char *s2)
+{
+	char	*dest;
+	size_t	s1_len;
+	size_t	counter;
+
+	s1_len = ft_strlen(s1);
+	counter = 0;
+	if (!s1)
+		s1 = ft_strdup("");
+	dest = malloc(s1_len + ft_strlen(s2) + 1);
+	if (dest == NULL)
+		return (NULL);
+	ft_strlcpy(dest, s1, ft_strlen(s1) + 1);
+	while(s2[counter])
+	{
+		dest[s1_len + counter] = s2[counter];
+		counter ++;
+	}
+	dest[s1_len + counter] = '\0';
+
+	free(s1);
+	return (dest);
+}
+
+
+char	*ft_get_line(char *store)
+{
+	size_t		counter;
+
+	counter = 0;
+	if (!store || !store[0])
+		return (NULL);
+	while(store[counter] && store[counter] != '\n')
+		counter ++;
+	if(store[counter] == '\n')
+		counter ++;
+	return (ft_substr(store, 0, counter));
+}
+
 char	*get_next_line(int fd)
 {
-	char			*line_cut;
-	char			*concat;
-	char			*read_bytes;
+	char			*line;
+	char			data[BUFFER_SIZE + 1];
+	char			*tmp_store;
+	ssize_t			read_bytes;
 	static char		*store;
 
-	read_bytes = malloc(BUFFER_SIZE + 1);
-	read(fd, read_bytes, BUFFER_SIZE);
-	read_bytes[BUFFER_SIZE] = '\0';
-	if (!store)
-		store = ft_strdup(read_bytes);
-	if(!fd || !read_bytes[0] || !store)
+	read_bytes = 1;
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	while (read(fd, read_bytes, BUFFER_SIZE) > 0)
+	while (!ft_strchr(store, '\n') && read_bytes > 0)
 	{
-		if (ft_strchr(store, '\n'))
-		{
-			line_cut = ft_get_line(store);
-			store = ft_strchr(store, '\n');
-		}
-		else
-		{
-			read(fd, read_bytes, BUFFER_SIZE);
-			concat = malloc(ft_strlen(store) + ft_strlen(read_bytes) + 1);
-			concat = ft_strcat(store, read_bytes);
-			store = ft_strdup(concat);
-			free(concat);
-		}
+		read_bytes = read(fd, data, BUFFER_SIZE);
+		if (read_bytes < 0)
+			return (NULL);
+		data[read_bytes] = '\0';
+		store = ft_strjoin(store, data);
 	}
-	line_cut = ft_get_line(store);
-	return (line_cut);
+	line = ft_get_line(store);
+	tmp_store = ft_substr(store, ft_strlen(line), read_bytes);
+	free(store);
+	store = tmp_store;
+	return (line);
 }
-/* 
-recalling the function starts from the frist BS
-has to reset the reading to set the bytes already readen
+
+/*
+line = ft_get_line(store);
+tmp_store = ft_substr(store, ft_strlen(line), read_bytes);
+free(store);
+store = malloc(ft_strlen(tmp_store) + 1);
+ft_strlcpy(store, tmp_store, ft_strlen(tmp_store) + 1);
+free(tmp_store); 
+return (line);
 */
+
+/*
 int	main(void)
 {
 	int	fd;
+	char *a,*b,*c,*d,*e,*f;
 
 	fd = open("fd.text", O_RDONLY);
 	if(fd == -1)
 		return (-1);
-	//printf("%s \n", get_next_line(fd));
-	//printf("%s \n", get_next_line(fd));
-	get_next_line(fd);
+	a = get_next_line(fd);
+	b = get_next_line(fd);
+	c = get_next_line(fd);
+	d = get_next_line(fd);
+	e = get_next_line(fd);
+	f = get_next_line(fd);
+	printf("%s", a);
+	printf("%s", b);
+	printf("%s", c);
+	printf("%s", d);
+	printf("%s", e);
+	printf("%s", f);
+	free(a);
+	free(b);
+	free(c);
+	free(d);
+	free(e);
+	free(f);
+	
 	close(fd);
 	return (0);
 }
-
+*/

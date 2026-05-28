@@ -6,7 +6,7 @@
 /*   By: omarquez <omarquez@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/21 15:29:40 by omarquez          #+#    #+#             */
-/*   Updated: 2026/05/27 15:37:01 by omarquez         ###   ########.fr       */
+/*   Updated: 2026/05/28 15:05:39 by omarquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ size_t	ft_strlen(const char *str)
 	size_t	counter;
 
 	counter = 0;
+	if (!str)
+		return (0);
 	while (*str != '\0')
 	{
 		counter ++;
@@ -30,6 +32,8 @@ char	*ft_strdup(const char *s)
 	size_t	s_len;
 	char	*dest;
 
+	if (!s)
+		return (NULL);
 	s_len = ft_strlen(s) + 1;
 	dest = malloc(s_len);
 	if (dest == NULL)
@@ -45,22 +49,27 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 
 	count = 0;
 	src_len = ft_strlen(src);
-	if (size > 0)
+	if (src)
 	{
-		while (count < (size - 1) && src[count])
+		if (size > 0)
 		{
-			dst[count] = src[count];
-			count ++;
+			while (count < (size - 1) && src[count])
+			{
+				dst[count] = src[count];
+				count ++;
+			}
+			dst[count] = '\0';
 		}
-		dst[count] = '\0';
 	}
 	return (src_len);
 }
 char	*ft_strchr(const char *s, int c)
 {
 	const char	*temp_str;
-	int			counter;
+	size_t			counter;
 
+	if (!s)
+		return (NULL);
 	temp_str = (const char *) s;
 	counter = 0;
 	while (c > 256)
@@ -75,39 +84,28 @@ char	*ft_strchr(const char *s, int c)
 		return ((char *) &temp_str[counter]);
 	return (NULL);
 }
-char	*ft_strcat(char *dst, char *src)
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	size_t	dst_len;
+	char	*dest;
+	size_t	size;
 	size_t	counter;
 
-	dst_len = ft_strlen(dst);
 	counter = 0;
-	while (src[counter])
-	{
-		dst[dst_len + counter] = src[counter];
-		counter ++;
-	}
-	dst[dst_len + counter] = '\0';
-	return (dst);
-}
-
-char	*ft_get_line(char *read_bytes)
-{
-	char	*line_cut;
-	int		counter;
-
-	counter = 0;
-	if (!read_bytes)
+	if (s == NULL)
 		return (NULL);
-	while(read_bytes[counter] != '\n')
-		counter ++;
-	if(read_bytes[counter] == '\n')
+	if (start > ft_strlen(s))
+		return (ft_strdup(""));
+	size = ft_strlen(s + start);
+	if (size < len)
+		len = size;
+	dest = (char *) malloc(len + 1);
+	if (dest == NULL)
+		return (NULL);
+	while (counter < len)
 	{
-		line_cut = malloc(counter + 1);
-		if (!line_cut)
-			return (NULL);
-		ft_strlcpy(line_cut, read_bytes, counter + 1);
-		return (line_cut);
+		dest[counter] = s[start + counter];
+		counter ++;
 	}
-	return (NULL);
+	dest[counter] = '\0';
+	return (dest);
 }
