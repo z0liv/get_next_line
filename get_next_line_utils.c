@@ -6,7 +6,7 @@
 /*   By: omarquez <omarquez@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/21 15:29:40 by omarquez          #+#    #+#             */
-/*   Updated: 2026/05/28 15:05:39 by omarquez         ###   ########.fr       */
+/*   Updated: 2026/05/31 10:44:43 by omarquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,42 +48,43 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 	size_t		src_len;
 
 	count = 0;
+	if (!dst || !src)
+		return (0);
 	src_len = ft_strlen(src);
-	if (src)
+	if (size > 0)
 	{
-		if (size > 0)
+		while (count < (size - 1) && src[count])
 		{
-			while (count < (size - 1) && src[count])
-			{
-				dst[count] = src[count];
-				count ++;
-			}
-			dst[count] = '\0';
+			dst[count] = src[count];
+			count ++;
 		}
+		dst[count] = '\0';
 	}
 	return (src_len);
 }
+
 char	*ft_strchr(const char *s, int c)
 {
 	const char	*temp_str;
-	size_t			counter;
+	size_t		counter;
+	char		c_temp;
 
+	c_temp = (unsigned char) c;
 	if (!s)
 		return (NULL);
 	temp_str = (const char *) s;
 	counter = 0;
-	while (c > 256)
-		c = c - 256;
 	while (temp_str[counter] != '\0')
 	{
-		if (temp_str[counter] == c)
+		if (temp_str[counter] == c_temp)
 			return ((char *) &temp_str[counter]);
 		counter ++;
 	}
-	if (temp_str[counter] == c)
+	if (temp_str[counter] == c_temp)
 		return ((char *) &temp_str[counter]);
 	return (NULL);
 }
+
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
 	char	*dest;
@@ -93,7 +94,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	counter = 0;
 	if (s == NULL)
 		return (NULL);
-	if (start > ft_strlen(s))
+	if (start >= ft_strlen(s))
 		return (ft_strdup(""));
 	size = ft_strlen(s + start);
 	if (size < len)

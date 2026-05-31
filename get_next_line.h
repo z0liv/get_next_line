@@ -6,17 +6,15 @@
 /*   By: omarquez <omarquez@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/21 15:29:50 by omarquez          #+#    #+#             */
-/*   Updated: 2026/05/28 12:31:32 by omarquez         ###   ########.fr       */
+/*   Updated: 2026/05/31 10:50:01 by omarquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
-
-#ifndef BUFFER_SIZE
-	# define BUFFER_SIZE 42
-#endif
-
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 42
+# endif
 # include <stdlib.h>
 # include <stddef.h>
 # include <unistd.h>
