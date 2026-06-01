@@ -6,14 +6,14 @@
 /*   By: omarquez <omarquez@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/21 15:29:46 by omarquez          #+#    #+#             */
-/*   Updated: 2026/06/01 13:36:25 by omarquez         ###   ########.fr       */
+/*   Updated: 2026/06/01 21:24:56 by omarquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include "get_next_line.h"
 
-char	*ft_strjoin(char *s1, char *s2)
+static char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*dest;
 	size_t	s1_len;
@@ -40,7 +40,7 @@ char	*ft_strjoin(char *s1, char *s2)
 	return (dest);
 }
 
-static char	*read_store(int fd, char *store)
+static char	*ft_read_store(int fd, char *store)
 {
 	char	*buffer;
 	char	*tmp;
@@ -64,7 +64,7 @@ static char	*read_store(int fd, char *store)
 	return (store);
 }
 
-static char	*update_store(char *store, char *line)
+static char	*ft_update_store(char *store, char *line)
 {
 	char	*new_store;
 
@@ -77,7 +77,7 @@ static char	*update_store(char *store, char *line)
 	return (new_store);
 }
 
-char	*ft_get_line(char *store)
+static char	*ft_get_line(char *store)
 {
 	size_t		counter;
 
@@ -98,13 +98,13 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	store = read_store(fd, store);
+	store = ft_read_store(fd, store);
 	if (!store)
 		return (NULL);
 	line = ft_get_line(store);
 	if (!line)
 		return (free(store), store = NULL, NULL);
-	store = update_store(store, line);
+	store = ft_update_store(store, line);
 	return (line);
 }
 /*
