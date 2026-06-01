@@ -6,7 +6,7 @@
 /*   By: omarquez <omarquez@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/21 15:29:46 by omarquez          #+#    #+#             */
-/*   Updated: 2026/05/31 10:52:31 by omarquez         ###   ########.fr       */
+/*   Updated: 2026/06/01 12:11:58 by omarquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,20 +42,24 @@ char	*ft_strjoin(char *s1, char *s2)
 
 static char	*read_store(int fd, char *store)
 {
-	char	buffer[BUFFER_SIZE + 1];
+	char	*buffer;
 	char	*tmp;
 	ssize_t	bytes;
 
 	bytes = 1;
 	while (!ft_strchr(store, '\n') && bytes > 0)
 	{
+		buffer = malloc(BUFFER_SIZE + 1);
+		if (!buffer)
+			return (free(store), NULL);
 		bytes = read(fd, buffer, BUFFER_SIZE);
 		if (bytes < 0)
-			return (free(store), NULL);
+			return (free(buffer), free(store), NULL);
 		buffer[bytes] = '\0';
 		tmp = ft_strjoin(store, buffer);
 		free(store);
 		store = tmp;
+		free(buffer);
 	}
 	return (store);
 }
@@ -106,36 +110,19 @@ char	*get_next_line(int fd)
 /*
 int	main(void)
 {
-	int	fd;
-	char	*result;
+	int		fd;
+	char	*line;
 	
 	fd = open("big_line_no_nl", O_RDONLY);
 	if(fd == -1)
 		return (-1);
-	result = get_next_line(fd);
-	printf("%s \n", result);
-	char *a,*b,*c,*d,*e,*f;
-	a = get_next_line(fd);
-	b = get_next_line(fd);
-	c = get_next_line(fd);
-	d = get_next_line(fd);
-	e = get_next_line(fd);
-	f = get_next_line(fd);
-	printf("%s", a);
-	printf("%s", b);
-	printf("%s", c);
-	printf("%s", d);
-	printf("%s", e);
-	printf("%s", f);
-	free(a);
-	free(b);
-	free(c);
-	free(d);
-	free(e);
-	free(f);
-	
-	
+	while((line = get_next_line(fd)))
+	{
+		printf("%s", line);
+		free(line);
+	}
 	close(fd);
 	return (0);
 }
+
 */
