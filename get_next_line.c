@@ -6,7 +6,7 @@
 /*   By: omarquez <omarquez@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/21 15:29:46 by omarquez          #+#    #+#             */
-/*   Updated: 2026/06/01 12:11:58 by omarquez         ###   ########.fr       */
+/*   Updated: 2026/06/01 13:36:25 by omarquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,5 +124,4 @@ int	main(void)
 	close(fd);
 	return (0);
 }
-
 */
