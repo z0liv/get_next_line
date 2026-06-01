@@ -6,7 +6,7 @@
 /*   By: omarquez <omarquez@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/21 15:29:46 by omarquez          #+#    #+#             */
-/*   Updated: 2026/06/01 21:24:56 by omarquez         ###   ########.fr       */
+/*   Updated: 2026/06/01 21:32:07 by omarquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,13 +107,14 @@ char	*get_next_line(int fd)
 	store = ft_update_store(store, line);
 	return (line);
 }
+
 /*
 int	main(void)
 {
 	int		fd;
 	char	*line;
 	
-	fd = open("big_line_no_nl", O_RDONLY);
+	fd = open("text.text", O_RDONLY);
 	if(fd == -1)
 		return (-1);
 	while((line = get_next_line(fd)))
