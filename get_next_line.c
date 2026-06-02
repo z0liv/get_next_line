@@ -6,11 +6,10 @@
 /*   By: omarquez <omarquez@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/21 15:29:46 by omarquez          #+#    #+#             */
-/*   Updated: 2026/06/01 21:32:07 by omarquez         ###   ########.fr       */
+/*   Updated: 2026/06/02 09:29:14 by omarquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include "get_next_line.h"
 
 static char	*ft_strjoin(char *s1, char *s2)
