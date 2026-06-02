@@ -6,7 +6,7 @@
 /*   By: omarquez <omarquez@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/21 15:29:40 by omarquez          #+#    #+#             */
-/*   Updated: 2026/05/31 10:44:43 by omarquez         ###   ########.fr       */
+/*   Updated: 2026/06/02 09:47:47 by omarquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ size_t	ft_strlen(const char *str)
 	return (counter);
 }
 
-char	*ft_strdup(const char *s)
+static char	*ft_strdup(const char *s)
 {
 	size_t	s_len;
 	char	*dest;
