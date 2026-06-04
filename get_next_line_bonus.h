@@ -6,7 +6,7 @@
 /*   By: omarquez <omarquez@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/21 15:29:50 by omarquez          #+#    #+#             */
-/*   Updated: 2026/06/03 20:50:52 by omarquez         ###   ########.fr       */
+/*   Updated: 2026/06/04 09:41:55 by omarquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 # define GET_NEXT_LINE_BONUS_H
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
+# endif
+# ifndef FD_SIZE
+#  define FD_SIZE 1024
 # endif
 # include <stdlib.h>
 # include <stddef.h>

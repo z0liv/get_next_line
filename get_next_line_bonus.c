@@ -6,7 +6,7 @@
 /*   By: omarquez <omarquez@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/21 15:29:46 by omarquez          #+#    #+#             */
-/*   Updated: 2026/06/03 21:09:40 by omarquez         ###   ########.fr       */
+/*   Updated: 2026/06/04 11:47:42 by omarquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ static char	*ft_get_line(char *store)
 char	*get_next_line(int fd)
 {
 	char			*line;
-	static char		*store[4096];
+	static char		*store[FD_SIZE];
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
@@ -108,20 +108,33 @@ char	*get_next_line(int fd)
 }
 
 /*
+#include <stdio.h>
 int	main(void)
 {
-	int		fd;
+	int		counter;
+	int		fds[3];
 	char	*line;
 	
-	fd = open("text.text", O_RDONLY);
-	if(fd == -1)
+	counter = 0;
+	fds[0] = open("text1.txt", O_RDONLY);
+	fds[1] = open("text2.txt", O_RDONLY);
+	fds[2] = open("text3.txt", O_RDONLY);
+	if(fds[0] == -1 || fds[1] == -1 || fds[2] == -1)
 		return (-1);
-	while((line = get_next_line(fd)))
+	printf("%d %d %d \n", fds[0], fds[1], fds[2]);
+	
+	while(counter < 3)
 	{
-		printf("%s", line);
-		free(line);
+		while((line = get_next_line(fds[counter])))
+		{
+			printf("%s", line);
+			free(line);
+		}
+		counter ++;
 	}
-	close(fd);
+	close(fds[0]);
+	close(fds[1]);
+	close(fds[2]);
 	return (0);
 }
 */
